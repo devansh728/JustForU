@@ -1,224 +1,103 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MousePointer2, Palette, Share2, Sparkles, CheckCircle2, ArrowRight } from "lucide-react";
-import { FadeIn } from "@/components/animations/AnimatedText";
+import { Palette, Edit3, Share2, Sparkles } from "lucide-react";
 
 const steps = [
   {
-    step: 1,
-    icon: MousePointer2,
-    title: "Choose Your Template",
-    description: "Browse our collection of beautiful, animated templates for any occasion",
-    color: "from-pink-400 to-rose-500",
-    emoji: "✨",
-  },
-  {
-    step: 2,
+    number: "01",
     icon: Palette,
-    title: "Customize Everything",
-    description: "Add photos, music, colors, and personal touches - like adding toppings!",
-    color: "from-purple-400 to-indigo-500",
-    emoji: "🎨",
+    title: "Choose Template",
+    description: "Browse our collection of stunning designs and pick one that matches your style",
   },
   {
-    step: 3,
+    number: "02",
+    icon: Edit3,
+    title: "Customize It",
+    description: "Add your photos, names, and personalized messages with our easy editor",
+  },
+  {
+    number: "03",
+    icon: Sparkles,
+    title: "Add Magic",
+    description: "Select music, animations, and special effects to make it unforgettable",
+  },
+  {
+    number: "04",
     icon: Share2,
-    title: "Share the Magic",
-    description: "Send via link, QR code, or message - watch their face light up!",
-    color: "from-blue-400 to-cyan-500",
-    emoji: "💝",
+    title: "Share Love",
+    description: "Send your creation via WhatsApp, Instagram, or any platform",
   },
 ];
 
 export function HowItWorksSection() {
   return (
-    <section className="relative py-20 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-pink-50/30 to-white" />
-
-      {/* Decorative patterns */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-full h-full" 
-          style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, #ec407a 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <FadeIn>
-            <span className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-100 to-purple-100 px-4 py-2 rounded-full text-sm font-medium text-pink-600 mb-4">
-              <Sparkles className="w-4 h-4" />
-              Simple as 1-2-3
-            </span>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-4">
-              How It <span className="gradient-text font-script text-4xl md:text-6xl">Works</span>
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Create your magical invitation in just 3 simple steps — 
-              no design skills needed! 🎉
-            </p>
-          </FadeIn>
-        </div>
+    <section className="py-24 section-pink relative overflow-hidden">
+      {/* Decorative stripes */}
+      <div className="absolute left-0 top-0 bottom-0 w-1/3 stripe-pattern opacity-20" />
+      
+      <div className="container-custom relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <span className="inline-block px-4 py-2 bg-white text-pink-600 rounded-full text-sm font-medium mb-4 shadow-sm">
+            Simple Process
+          </span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2">
+            HOW IT
+          </h2>
+          <p className="text-5xl md:text-6xl font-script text-pink-500">
+            Works
+          </p>
+        </motion.div>
 
         {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
             <motion.div
-              key={step.step}
-              initial={{ opacity: 0, y: 30 }}
+              key={step.number}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
               className="relative"
             >
               {/* Connector Line */}
               {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-16 left-full w-full h-0.5 z-0">
-                  <motion.div
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.3 + 0.5, duration: 0.5 }}
-                    className="h-full bg-gradient-to-r from-pink-300 to-purple-300 origin-left"
-                    style={{ transformOrigin: "left" }}
-                  />
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.3 + 0.8 }}
-                    className="absolute right-0 top-1/2 -translate-y-1/2"
-                  >
-                    <ArrowRight className="w-5 h-5 text-pink-400" />
-                  </motion.div>
+                <div className="hidden lg:block absolute top-16 left-full w-full h-0.5 bg-pink-200 -translate-x-1/2 z-0">
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-pink-400" />
                 </div>
               )}
 
               <motion.div
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="glass-card-strong rounded-3xl p-8 text-center h-full relative z-10"
+                whileHover={{ y: -8 }}
+                className="relative z-10 bg-white rounded-3xl p-8 shadow-lg border border-pink-100 text-center"
               >
                 {/* Step Number */}
-                <motion.div
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                  className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg relative`}
-                >
-                  <step.icon className="w-8 h-8 text-white" />
-                  <span className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center text-sm font-bold text-pink-600 shadow-md">
-                    {step.step}
-                  </span>
-                </motion.div>
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-pink-500 text-white font-bold rounded-full text-sm">
+                  {step.number}
+                </div>
 
-                {/* Emoji decoration */}
-                <motion.span
-                  animate={{ y: [-5, 5, -5], rotate: [-5, 5, -5] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className="absolute top-4 right-4 text-2xl"
-                >
-                  {step.emoji}
-                </motion.span>
+                {/* Icon */}
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center mx-auto mb-6 mt-4">
+                  <step.icon className="w-10 h-10 text-pink-500" />
+                </div>
 
-                {/* Content */}
-                <h3 className="text-xl font-semibold text-gray-800 mb-3">
+                <h3 className="font-display font-bold text-xl text-gray-800 mb-3">
                   {step.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 text-sm leading-relaxed">
                   {step.description}
                 </p>
               </motion.div>
             </motion.div>
           ))}
         </div>
-
-        {/* Benefits List */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="glass-card-strong rounded-3xl p-8 md:p-12"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-6">
-                Why Choose <span className="gradient-text">JustforU</span>?
-              </h3>
-              <ul className="space-y-4">
-                {[
-                  "No design skills required",
-                  "Ready in under 10 minutes",
-                  "Works on all devices",
-                  "Unlimited revisions",
-                  "Lifetime access to your creation",
-                  "24/7 customer support",
-                ].map((benefit, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center gap-3"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700">{benefit}</span>
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex items-center justify-center">
-              <motion.div
-                whileHover={{ scale: 1.05, rotate: 2 }}
-                className="relative w-full max-w-sm"
-              >
-                {/* Mockup Card */}
-                <div className="bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100 rounded-3xl p-6 shadow-2xl">
-                  <div className="bg-white rounded-2xl p-4 mb-4">
-                    <div className="h-32 bg-gradient-to-br from-pink-200 to-purple-200 rounded-xl flex items-center justify-center">
-                      <motion.span
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="text-5xl"
-                      >
-                        💝
-                      </motion.span>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="h-4 bg-pink-200 rounded-full w-3/4" />
-                    <div className="h-4 bg-purple-200 rounded-full w-1/2" />
-                    <div className="h-10 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full mt-4" />
-                  </div>
-                </div>
-
-                {/* Floating elements */}
-                <motion.div
-                  animate={{ y: [-10, 10, -10], x: [-5, 5, -5] }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className="absolute -top-4 -right-4 text-3xl"
-                >
-                  ✨
-                </motion.div>
-                <motion.div
-                  animate={{ y: [10, -10, 10], x: [5, -5, 5] }}
-                  transition={{ duration: 5, repeat: Infinity }}
-                  className="absolute -bottom-4 -left-4 text-3xl"
-                >
-                  🌸
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

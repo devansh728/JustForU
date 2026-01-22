@@ -10,18 +10,12 @@ import { HowItWorksSection } from "@/components/sections/HowItWorksSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { PricingSection } from "@/components/sections/PricingSection";
 import { CTASection } from "@/components/sections/CTASection";
-import { FloatingHearts, FallingPetals } from "@/components/effects/FloatingHearts";
-import { MusicToggle } from "@/components/ui/MusicToggle";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 
 export default function Home() {
   return (
     <SmoothScroll>
       <main className="relative min-h-screen">
-        {/* Background Effects */}
-        <FloatingHearts />
-        <FallingPetals count={8} />
-        
         {/* Navigation */}
         <Navbar />
         
@@ -37,9 +31,6 @@ export default function Home() {
         
         {/* Footer */}
         <Footer />
-        
-        {/* Music Toggle */}
-        <MusicToggle />
       </main>
     </SmoothScroll>
   );

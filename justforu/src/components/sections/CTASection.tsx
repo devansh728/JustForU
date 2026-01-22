@@ -1,132 +1,103 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, Sparkles, ArrowRight, Gift } from "lucide-react";
-import { FadeIn, FloatingElement } from "@/components/animations/AnimatedText";
+import { Heart, Sparkles, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export function CTASection() {
   return (
-    <section className="relative py-20 px-4 overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-400 via-purple-400 to-indigo-400" />
+    <section className="py-24 relative overflow-hidden">
+      {/* Background with stripe pattern */}
+      <div className="absolute inset-0 stripe-pattern opacity-30" />
+      
+      <div className="container-custom relative z-10">
         <motion.div
-          animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
-          transition={{ duration: 20, repeat: Infinity }}
-          className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-white/10 to-transparent rounded-full"
-        />
-        <motion.div
-          animate={{ scale: [1.2, 1, 1.2], rotate: [360, 180, 0] }}
-          transition={{ duration: 25, repeat: Infinity }}
-          className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-white/10 to-transparent rounded-full"
-        />
-      </div>
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto"
+        >
+          {/* Decorative frame */}
+          <div className="relative bg-white rounded-3xl p-8 md:p-16 shadow-2xl border-2 border-pink-200 overflow-hidden">
+            {/* Corner decorations */}
+            <div className="absolute top-4 left-4 w-8 h-8 border-t-4 border-l-4 border-pink-300 rounded-tl-lg" />
+            <div className="absolute top-4 right-4 w-8 h-8 border-t-4 border-r-4 border-pink-300 rounded-tr-lg" />
+            <div className="absolute bottom-4 left-4 w-8 h-8 border-b-4 border-l-4 border-pink-300 rounded-bl-lg" />
+            <div className="absolute bottom-4 right-4 w-8 h-8 border-b-4 border-r-4 border-pink-300 rounded-br-lg" />
 
-      {/* Floating Decorations */}
-      <FloatingElement className="absolute top-20 left-10" duration={4}>
-        <span className="text-5xl opacity-40">💕</span>
-      </FloatingElement>
-      <FloatingElement className="absolute top-1/3 right-20" duration={5} delay={1}>
-        <span className="text-4xl opacity-30">✨</span>
-      </FloatingElement>
-      <FloatingElement className="absolute bottom-20 left-1/4" duration={6} delay={2}>
-        <span className="text-3xl opacity-40">🌸</span>
-      </FloatingElement>
-      <FloatingElement className="absolute bottom-1/3 right-10" duration={4.5} delay={0.5}>
-        <span className="text-4xl opacity-30">💝</span>
-      </FloatingElement>
-
-      <div className="relative max-w-4xl mx-auto text-center">
-        {/* Badge */}
-        <FadeIn>
-          <motion.div
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-white text-sm font-medium mb-8"
-          >
-            <Gift className="w-4 h-4" />
-            Limited Time Offer
-          </motion.div>
-        </FadeIn>
-
-        {/* Heading */}
-        <FadeIn delay={0.1}>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            Ready to Create 
-            <span className="block font-script text-4xl md:text-6xl lg:text-7xl mt-2">
-              Something Magical?
-            </span>
-          </h2>
-        </FadeIn>
-
-        {/* Description */}
-        <FadeIn delay={0.2}>
-          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Join 50,000+ couples who have created unforgettable moments. 
-            Your love story deserves to be told beautifully. 💖
-          </p>
-        </FadeIn>
-
-        {/* CTA Buttons */}
-        <FadeIn delay={0.3}>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.2)" }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white text-pink-600 px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-2 shadow-xl hover:shadow-2xl transition-shadow"
-            >
-              <Sparkles className="w-5 h-5" />
-              Start Creating Now
-              <ArrowRight className="w-5 h-5" />
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30 hover:bg-white/30 transition-colors"
-            >
-              View Templates
-            </motion.button>
-          </div>
-        </FadeIn>
-
-        {/* Trust Elements */}
-        <FadeIn delay={0.4}>
-          <div className="flex flex-wrap items-center justify-center gap-6 text-white/80">
-            <div className="flex items-center gap-2">
-              <Heart className="w-4 h-4 fill-white" />
-              <span className="text-sm">No credit card required</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Heart className="w-4 h-4 fill-white" />
-              <span className="text-sm">Free preview</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Heart className="w-4 h-4 fill-white" />
-              <span className="text-sm">Cancel anytime</span>
-            </div>
-          </div>
-        </FadeIn>
-
-        {/* Animated Hearts at Bottom */}
-        <div className="mt-12 flex justify-center gap-4">
-          {[...Array(5)].map((_, i) => (
+            {/* Floating hearts */}
             <motion.div
-              key={i}
-              animate={{ 
-                y: [-10, 10, -10],
-                rotate: [-5, 5, -5],
-              }}
-              transition={{ 
-                duration: 2 + i * 0.5, 
-                repeat: Infinity,
-                delay: i * 0.2,
-              }}
-              className="text-3xl"
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="absolute top-10 left-10 text-3xl"
             >
               💕
             </motion.div>
-          ))}
-        </div>
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+              className="absolute bottom-10 right-10 text-3xl"
+            >
+              💖
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, -12, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, delay: 1 }}
+              className="absolute top-1/2 right-8 text-2xl"
+            >
+              ✨
+            </motion.div>
+
+            {/* Content */}
+            <div className="text-center relative z-10">
+              <motion.div
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, type: "spring" }}
+                className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 mb-8 shadow-lg"
+              >
+                <Heart className="w-10 h-10 text-white fill-white" />
+              </motion.div>
+
+              <h2 className="text-3xl md:text-4xl font-display font-bold text-gray-800 mb-2">
+                READY TO CREATE
+              </h2>
+              <p className="text-4xl md:text-5xl font-script text-pink-500 mb-6">
+                Something Beautiful?
+              </p>
+              
+              <p className="text-gray-600 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+                Join thousands of happy couples who made their celebrations unforgettable 
+                with our magical digital invitations.
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link href="/templates">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="btn-primary flex items-center gap-2 text-lg"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    Start Creating Now
+                  </motion.button>
+                </Link>
+                <Link href="/contact">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="btn-outline flex items-center gap-2"
+                  >
+                    Contact Us
+                    <ArrowRight className="w-4 h-4" />
+                  </motion.button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,210 +1,169 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, Sparkles, Heart, Star, Crown, Zap } from "lucide-react";
-import { FadeIn } from "@/components/animations/AnimatedText";
+import { Check, Star, Zap } from "lucide-react";
 
 const plans = [
   {
-    name: "Sweetheart",
-    price: 299,
-    originalPrice: 399,
-    description: "Perfect for a simple, beautiful surprise",
-    icon: Heart,
-    color: "from-pink-400 to-rose-500",
+    name: "Basic",
+    price: 499,
+    description: "Perfect for simple celebrations",
     features: [
-      "1 Template Access",
-      "Basic Customization",
-      "5 Photo Uploads",
-      "Standard Music Library",
-      "Shareable Link",
-      "7 Days Access",
+      "1 Premium Template",
+      "Basic Animations",
+      "5 Photos Upload",
+      "Background Music",
+      "WhatsApp Sharing",
+      "24 Hours Delivery",
     ],
     popular: false,
   },
   {
-    name: "Romance",
-    price: 499,
-    originalPrice: 699,
-    description: "Most popular for special occasions",
-    icon: Star,
-    color: "from-purple-400 to-indigo-500",
+    name: "Premium",
+    price: 999,
+    originalPrice: 1499,
+    description: "Most loved by our customers",
     features: [
-      "All Templates Access",
-      "Full Customization",
-      "20 Photo Uploads",
-      "Premium Music Library",
-      "Custom Music Upload",
-      "QR Code Generation",
-      "Lifetime Access",
-      "RSVP Feature",
+      "3 Premium Templates",
+      "Advanced Animations",
+      "20 Photos Upload",
+      "Custom Music",
+      "All Platform Sharing",
+      "Priority Delivery",
+      "Countdown Timer",
+      "RSVP Collection",
     ],
     popular: true,
   },
   {
-    name: "Forever",
-    price: 999,
-    originalPrice: 1499,
-    description: "The ultimate celebration experience",
-    icon: Crown,
-    color: "from-amber-400 to-orange-500",
+    name: "Luxury",
+    price: 1999,
+    description: "For the most special occasions",
     features: [
-      "Everything in Romance",
-      "Priority Support",
-      "Custom Domain",
-      "Video Message (2 min)",
-      "Guest Book",
-      "View Analytics",
-      "Remove Branding",
-      "Multiple Languages",
-      "Print-Ready Export",
+      "Unlimited Templates",
+      "Exclusive Animations",
+      "Unlimited Photos",
+      "Personal Music Upload",
+      "All Platform Sharing",
+      "Same Day Delivery",
+      "Video Integration",
+      "Guest Book Feature",
+      "Dedicated Support",
     ],
     popular: false,
   },
 ];
 
 export function PricingSection() {
-  const [isAnnual, setIsAnnual] = useState(false);
-
   return (
-    <section className="relative py-20 overflow-hidden" id="pricing">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-purple-50/30 to-pink-50/30" />
+    <section id="pricing" className="py-24 section-pink relative overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute right-0 top-0 w-80 h-80 blob-pink opacity-20" />
+      <div className="absolute left-0 bottom-0 w-96 h-96 blob-pink opacity-15" />
 
-      {/* Decorative Elements */}
-      <motion.div
-        animate={{ y: [-10, 10, -10] }}
-        transition={{ duration: 6, repeat: Infinity }}
-        className="absolute top-20 right-20 text-5xl opacity-20"
-      >
-        💎
-      </motion.div>
-      <motion.div
-        animate={{ y: [10, -10, 10] }}
-        transition={{ duration: 8, repeat: Infinity }}
-        className="absolute bottom-20 left-20 text-4xl opacity-20"
-      >
-        ✨
-      </motion.div>
-
-      <div className="relative max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <FadeIn>
-            <span className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-100 to-purple-100 px-4 py-2 rounded-full text-sm font-medium text-pink-600 mb-4">
-              <Zap className="w-4 h-4" />
-              Simple Pricing
-            </span>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-4">
-              Choose Your <span className="gradient-text font-script text-4xl md:text-6xl">Magic</span>
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              One-time payment, lifetime memories. No subscriptions, no hidden fees. 💖
-            </p>
-          </FadeIn>
-        </div>
+      <div className="container-custom relative z-10">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <span className="inline-block px-4 py-2 bg-white text-pink-600 rounded-full text-sm font-medium mb-4 shadow-sm">
+            Simple Pricing
+          </span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2">
+            CHOOSE YOUR
+          </h2>
+          <p className="text-5xl md:text-6xl font-script text-pink-500">
+            Perfect Plan
+          </p>
+        </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.name}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.15 }}
-              whileHover={{ y: -10 }}
-              className={`relative ${plan.popular ? "md:-mt-4 md:mb-4" : ""}`}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              className={`relative ${plan.popular ? 'md:-mt-4 md:mb-4' : ''}`}
             >
               {/* Popular Badge */}
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                  <motion.div
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg"
-                  >
-                    Most Popular 💕
-                  </motion.div>
+                  <div className="px-4 py-1 bg-pink-500 text-white text-sm font-bold rounded-full flex items-center gap-1 shadow-lg">
+                    <Star className="w-4 h-4 fill-white" />
+                    Most Popular
+                  </div>
                 </div>
               )}
 
-              <div className={`glass-card-strong rounded-3xl p-8 h-full ${plan.popular ? "border-2 border-pink-300 shadow-2xl" : ""}`}>
-                {/* Icon */}
-                <motion.div
-                  whileHover={{ rotate: 10, scale: 1.1 }}
-                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${plan.color} flex items-center justify-center mb-6 shadow-lg`}
-                >
-                  <plan.icon className="w-7 h-7 text-white" />
-                </motion.div>
-
+              <motion.div
+                whileHover={{ y: -8 }}
+                className={`h-full bg-white rounded-3xl p-8 shadow-lg border-2 transition-all ${
+                  plan.popular
+                    ? 'border-pink-400 shadow-xl'
+                    : 'border-pink-100 hover:border-pink-200'
+                }`}
+              >
                 {/* Plan Name */}
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">{plan.name}</h3>
-                <p className="text-gray-600 text-sm mb-6">{plan.description}</p>
+                <div className="text-center mb-6">
+                  <h3 className="font-display font-bold text-2xl text-gray-800 mb-2">
+                    {plan.name}
+                  </h3>
+                  <p className="text-gray-500 text-sm">
+                    {plan.description}
+                  </p>
+                </div>
 
                 {/* Price */}
-                <div className="mb-6">
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-bold gradient-text">₹{plan.price}</span>
-                    <span className="text-gray-400 line-through">₹{plan.originalPrice}</span>
+                <div className="text-center mb-8">
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-4xl font-display font-bold text-pink-600">
+                      ₹{plan.price}
+                    </span>
+                    {plan.originalPrice && (
+                      <span className="text-lg text-gray-400 line-through">
+                        ₹{plan.originalPrice}
+                      </span>
+                    )}
                   </div>
-                  <p className="text-sm text-gray-500 mt-1">One-time payment</p>
+                  <p className="text-gray-500 text-sm mt-1">one-time payment</p>
                 </div>
 
                 {/* Features */}
                 <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 + i * 0.05 }}
-                      className="flex items-center gap-3"
-                    >
-                      <Check className={`w-5 h-5 ${plan.popular ? "text-pink-500" : "text-green-500"}`} />
-                      <span className="text-gray-700 text-sm">{feature}</span>
-                    </motion.li>
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-3">
+                      <div className="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center flex-shrink-0">
+                        <Check className="w-3 h-3 text-pink-600" />
+                      </div>
+                      <span className="text-gray-600 text-sm">{feature}</span>
+                    </li>
                   ))}
                 </ul>
 
                 {/* CTA Button */}
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`w-full py-3 rounded-full font-semibold transition-all ${
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`w-full py-3 rounded-full font-semibold transition-all flex items-center justify-center gap-2 ${
                     plan.popular
-                      ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg hover:shadow-xl"
-                      : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                      ? 'bg-pink-500 text-white shadow-lg hover:bg-pink-600'
+                      : 'bg-pink-100 text-pink-600 hover:bg-pink-200'
                   }`}
                 >
+                  {plan.popular && <Zap className="w-4 h-4" />}
                   Get Started
                 </motion.button>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
-
-        {/* Money Back Guarantee */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <div className="inline-flex items-center gap-3 bg-green-50 border border-green-200 px-6 py-3 rounded-full">
-            <span className="text-2xl">🛡️</span>
-            <div className="text-left">
-              <p className="font-semibold text-green-800">100% Satisfaction Guarantee</p>
-              <p className="text-sm text-green-600">Full refund within 24 hours if you&apos;re not happy</p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

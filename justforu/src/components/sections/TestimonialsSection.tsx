@@ -1,139 +1,147 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Quote, Star, Heart } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { testimonials } from "@/data/mockData";
-import { FadeIn } from "@/components/animations/AnimatedText";
 
 export function TestimonialsSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [mounted]);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  if (!mounted) return null;
+
   return (
-    <section className="relative py-20 overflow-hidden">
+    <section className="py-24 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-50/30 via-pink-50/20 to-white" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-pink-50/50 to-white" />
 
-      {/* Decorative Elements */}
-      <motion.div
-        animate={{ y: [-10, 10, -10], rotate: [0, 5, 0] }}
-        transition={{ duration: 6, repeat: Infinity }}
-        className="absolute top-20 left-10 text-5xl opacity-20"
-      >
-        💬
-      </motion.div>
-      <motion.div
-        animate={{ y: [10, -10, 10], rotate: [0, -5, 0] }}
-        transition={{ duration: 8, repeat: Infinity }}
-        className="absolute bottom-20 right-10 text-4xl opacity-20"
-      >
-        💕
-      </motion.div>
-
-      <div className="relative max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <FadeIn>
-            <span className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-100 to-purple-100 px-4 py-2 rounded-full text-sm font-medium text-pink-600 mb-4">
-              <Heart className="w-4 h-4" />
-              Love Stories
-            </span>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-4">
-              What Our <span className="gradient-text font-script text-4xl md:text-6xl">Couples</span> Say
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Hear from the hearts we&apos;ve helped connect 💖
-            </p>
-          </FadeIn>
-        </div>
-
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.15 }}
-              whileHover={{ y: -8 }}
-              className="group"
-            >
-              <div className="glass-card-strong rounded-3xl p-8 h-full relative overflow-hidden">
-                {/* Quote Icon */}
-                <motion.div
-                  whileHover={{ rotate: 10, scale: 1.1 }}
-                  className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center mb-6 shadow-lg"
-                >
-                  <Quote className="w-5 h-5 text-white" />
-                </motion.div>
-
-                {/* Message */}
-                <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-                  &quot;{testimonial.message}&quot;
-                </p>
-
-                {/* Stars */}
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                  ))}
-                </div>
-
-                {/* Author */}
-                <div className="flex items-center gap-4">
-                  <div className="relative">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover border-2 border-pink-200"
-                    />
-                    <motion.div
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="absolute -bottom-1 -right-1 text-sm"
-                    >
-                      💕
-                    </motion.div>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-800">{testimonial.name}</p>
-                    <p className="text-sm text-pink-500">Used: {testimonial.template}</p>
-                  </div>
-                </div>
-
-                {/* Decorative gradient */}
-                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-pink-200/30 to-purple-200/30 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500" />
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Trust Indicators */}
+      <div className="container-custom relative z-10">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <div className="inline-flex flex-wrap items-center justify-center gap-8 md:gap-16 p-8 glass-card rounded-3xl">
-            {[
-              { value: "50,000+", label: "Happy Couples" },
-              { value: "4.9/5", label: "Average Rating" },
-              { value: "99%", label: "Would Recommend" },
-            ].map((stat, index) => (
+          <span className="inline-block px-4 py-2 bg-pink-100 text-pink-600 rounded-full text-sm font-medium mb-4">
+            Testimonials
+          </span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-2">
+            LOVED BY
+          </h2>
+          <p className="text-5xl md:text-6xl font-script text-pink-500">
+            Thousands
+          </p>
+        </motion.div>
+
+        {/* Testimonial Carousel */}
+        <div className="max-w-4xl mx-auto relative">
+          {/* Navigation Buttons */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 z-10 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-pink-500 hover:bg-pink-50 transition-colors"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 z-10 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-pink-500 hover:bg-pink-50 transition-colors"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          {/* Testimonial Card */}
+          <div className="overflow-hidden">
+            <AnimatePresence mode="wait">
               <motion.div
-                key={index}
-                whileHover={{ scale: 1.1 }}
-                className="text-center"
+                key={currentIndex}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-pink-100 relative"
               >
-                <p className="text-2xl md:text-3xl font-bold gradient-text">{stat.value}</p>
-                <p className="text-sm text-gray-500">{stat.label}</p>
+                {/* Quote Icon */}
+                <div className="absolute top-6 right-6 w-16 h-16 rounded-full bg-pink-100 flex items-center justify-center">
+                  <Quote className="w-8 h-8 text-pink-400" />
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-col md:flex-row gap-8 items-center">
+                  {/* Avatar */}
+                  <div className="flex-shrink-0">
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-pink-200 to-pink-300 flex items-center justify-center text-3xl font-display font-bold text-pink-600 border-4 border-white shadow-lg">
+                      {testimonials[currentIndex].name.charAt(0)}
+                    </div>
+                  </div>
+
+                  {/* Text */}
+                  <div className="flex-1 text-center md:text-left">
+                    {/* Stars */}
+                    <div className="flex items-center justify-center md:justify-start gap-1 mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-5 h-5 text-yellow-400 fill-yellow-400"
+                        />
+                      ))}
+                    </div>
+
+                    <p className="text-lg text-gray-700 leading-relaxed mb-6 italic">
+                      &ldquo;{testimonials[currentIndex].content}&rdquo;
+                    </p>
+
+                    <div>
+                      <p className="font-display font-bold text-gray-800 text-lg">
+                        {testimonials[currentIndex].name}
+                      </p>
+                      <p className="text-pink-500 text-sm">
+                        {testimonials[currentIndex].occasion}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Dots */}
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  index === currentIndex
+                    ? "bg-pink-500 w-8"
+                    : "bg-pink-200 hover:bg-pink-300"
+                }`}
+              />
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,143 +1,96 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Wand2, Music, ImageIcon, Palette, Send, Sparkles, Heart } from "lucide-react";
-import { FadeIn, ScaleIn } from "@/components/animations/AnimatedText";
+import { Heart, Palette, Music, Share2, Sparkles, Clock } from "lucide-react";
 
 const features = [
   {
-    icon: Wand2,
-    title: "Magical Animations",
-    description: "Stunning scroll-based animations that bring your love story to life",
+    icon: Palette,
+    title: "Stunning Templates",
+    description: "Choose from 200+ beautifully crafted designs for every occasion",
     color: "from-pink-400 to-rose-500",
-    delay: 0,
   },
   {
     icon: Music,
-    title: "Background Music",
-    description: "Add your special song that plays as they read your invitation",
-    color: "from-purple-400 to-indigo-500",
-    delay: 0.1,
-  },
-  {
-    icon: ImageIcon,
-    title: "Photo Galleries",
-    description: "Beautiful animated photo frames with your cherished memories",
-    color: "from-blue-400 to-cyan-500",
-    delay: 0.2,
-  },
-  {
-    icon: Palette,
-    title: "Customizable Themes",
-    description: "Choose from dozens of romantic themes and color palettes",
-    color: "from-green-400 to-teal-500",
-    delay: 0.3,
-  },
-  {
-    icon: Send,
-    title: "Easy Sharing",
-    description: "Share via link, QR code, or embed in messages",
-    color: "from-orange-400 to-amber-500",
-    delay: 0.4,
+    title: "Music & Sound",
+    description: "Add romantic background music that plays automatically",
+    color: "from-purple-400 to-pink-500",
   },
   {
     icon: Heart,
-    title: "RSVP & Wishes",
-    description: "Collect responses and heartfelt messages from guests",
+    title: "Animated Hearts",
+    description: "Beautiful floating animations that capture the magic of love",
     color: "from-red-400 to-pink-500",
-    delay: 0.5,
+  },
+  {
+    icon: Share2,
+    title: "Easy Sharing",
+    description: "Share via WhatsApp, Instagram, or any social platform",
+    color: "from-blue-400 to-purple-500",
+  },
+  {
+    icon: Sparkles,
+    title: "Customization",
+    description: "Personalize every detail with your photos and messages",
+    color: "from-amber-400 to-orange-500",
+  },
+  {
+    icon: Clock,
+    title: "Quick Delivery",
+    description: "Get your invitation ready within 24 hours",
+    color: "from-green-400 to-teal-500",
   },
 ];
 
 export function FeaturesSection() {
   return (
-    <section className="relative py-20 px-4 overflow-hidden" id="features">
+    <section className="py-24 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-1/2 -right-1/2 w-full h-full opacity-5"
-          style={{
-            background: "conic-gradient(from 0deg, #ec407a, #ab47bc, #42a5f5, #ec407a)",
-          }}
-        />
-      </div>
+      <div className="absolute left-0 top-20 w-64 h-64 blob-pink opacity-30" />
+      <div className="absolute right-0 bottom-20 w-80 h-80 blob-pink opacity-20" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="container-custom relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <FadeIn>
-            <span className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-100 to-purple-100 px-4 py-2 rounded-full text-sm font-medium text-pink-600 mb-4">
-              <Sparkles className="w-4 h-4" />
-              Why Choose JustforU
-            </span>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-4">
-              Not Just Cards, <span className="gradient-text font-script text-4xl md:text-6xl">Experiences</span>
-            </h2>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Create interactive digital invitations with stunning animations, 
-              music, and personalization that touch hearts 💝
-            </p>
-          </FadeIn>
-        </div>
-
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <ScaleIn key={index} delay={feature.delay}>
-              <motion.div
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="group glass-card-strong rounded-3xl p-8 h-full cursor-pointer"
-              >
-                {/* Icon */}
-                <motion.div
-                  whileHover={{ rotate: 10, scale: 1.1 }}
-                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg group-hover:shadow-xl transition-shadow`}
-                >
-                  <feature.icon className="w-7 h-7 text-white" />
-                </motion.div>
-
-                {/* Content */}
-                <h3 className="text-xl font-semibold text-gray-800 mb-3 group-hover:text-pink-600 transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
-
-                {/* Hover indicator */}
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileHover={{ width: "100%" }}
-                  className="h-1 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full mt-6 opacity-0 group-hover:opacity-100 transition-opacity"
-                />
-              </motion.div>
-            </ScaleIn>
-          ))}
-        </div>
-
-        {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="text-center mt-16"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary inline-flex items-center gap-2"
-          >
-            <Sparkles className="w-5 h-5" />
-            Explore All Features
-          </motion.button>
+          <span className="inline-block px-4 py-2 bg-pink-100 text-pink-600 rounded-full text-sm font-medium mb-4">
+            Why Choose Us
+          </span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-800 mb-4">
+            WHAT MAKES US
+          </h2>
+          <p className="text-4xl md:text-5xl font-script text-pink-500">Special</p>
         </motion.div>
+
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -8 }}
+              className={`card-elegant p-8 ${index % 2 === 0 ? 'card-tilted' : 'card-tilted-right'}`}
+            >
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg`}>
+                <feature.icon className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-display font-bold text-gray-800 mb-3">
+                {feature.title}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

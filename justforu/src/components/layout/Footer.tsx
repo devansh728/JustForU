@@ -2,83 +2,93 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Heart, Instagram, Twitter, Mail, Sparkles } from "lucide-react";
+import { Heart, Instagram, Facebook, Twitter, Mail, Phone, MapPin } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
-    product: [
-      { name: "Templates", href: "/templates" },
-      { name: "Pricing", href: "#pricing" },
-      { name: "Features", href: "#features" },
-      { name: "Add-ons", href: "#addons" },
+    shop: [
+      { name: "All Templates", href: "/templates" },
+      { name: "Best Sellers", href: "/templates?category=best" },
+      { name: "New Arrivals", href: "/templates?category=new" },
+      { name: "On Sale", href: "/templates?category=sale" },
     ],
     occasions: [
-      { name: "Valentine's Day", href: "/templates/valentine" },
-      { name: "Anniversary", href: "/templates/anniversary" },
-      { name: "Birthday", href: "/templates/birthday" },
-      { name: "Wedding", href: "/templates/wedding" },
+      { name: "Valentine's Day", href: "/templates?category=valentines" },
+      { name: "Wedding", href: "/templates?category=wedding" },
+      { name: "Anniversary", href: "/templates?category=anniversary" },
+      { name: "Birthday", href: "/templates?category=birthday" },
     ],
     company: [
       { name: "About Us", href: "/about" },
+      { name: "Services", href: "/services" },
+      { name: "Blog", href: "/blog" },
       { name: "Contact", href: "/contact" },
+    ],
+    support: [
+      { name: "Help Center", href: "/help" },
+      { name: "FAQs", href: "/faqs" },
       { name: "Privacy Policy", href: "/privacy" },
       { name: "Terms of Service", href: "/terms" },
     ],
   };
 
   return (
-    <footer className="relative mt-20 overflow-hidden">
-      {/* Decorative Top Wave */}
-      <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-pink-50/50" />
+    <footer className="relative overflow-hidden">
+      {/* Decorative top border */}
+      <div className="h-4 bg-gradient-to-r from-pink-200 via-pink-400 to-pink-200" />
       
-      <div className="relative bg-gradient-to-br from-pink-50 via-purple-50 to-pink-50 pt-20 pb-10">
-        {/* Floating decorations */}
-        <motion.div
-          animate={{ y: [-10, 10, -10] }}
-          transition={{ duration: 4, repeat: Infinity }}
-          className="absolute top-10 left-10 text-4xl opacity-30"
-        >
-          💕
-        </motion.div>
-        <motion.div
-          animate={{ y: [10, -10, 10] }}
-          transition={{ duration: 5, repeat: Infinity }}
-          className="absolute top-20 right-20 text-3xl opacity-20"
-        >
-          ✨
-        </motion.div>
-
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div className="bg-white py-16">
+        <div className="container-custom">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
             {/* Brand Section */}
-            <div className="lg:col-span-2">
-              <Link href="/" className="flex items-center gap-2 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center">
-                  <Heart className="w-6 h-6 text-white fill-white" />
-                </div>
-                <span className="text-2xl font-bold gradient-text font-script">
-                  JustforU
-                </span>
+            <div className="col-span-2 md:col-span-3 lg:col-span-2">
+              <Link href="/" className="inline-block mb-6">
+                <motion.div whileHover={{ scale: 1.02 }}>
+                  <span className="text-3xl font-script text-pink-500">JustforU</span>
+                  <div className="flex items-center gap-1 mt-1">
+                    <span className="w-6 h-px bg-pink-300" />
+                    <Heart className="w-3 h-3 text-pink-400 fill-pink-400" />
+                    <span className="w-6 h-px bg-pink-300" />
+                  </div>
+                </motion.div>
               </Link>
-              <p className="text-gray-600 mb-6 max-w-sm">
-                Create magical digital invitations that tell your love story. 
-                Not just cards — unforgettable experiences. 💝
+              
+              <p className="text-gray-600 mb-6 max-w-sm leading-relaxed">
+                Creating magical digital invitations that celebrate love and special moments. 
+                Every celebration deserves to be unforgettable.
               </p>
+
+              {/* Contact Info */}
+              <div className="space-y-3 mb-6">
+                <a href="mailto:hello@justforu.love" className="flex items-center gap-2 text-gray-600 hover:text-pink-500 transition-colors">
+                  <Mail className="w-4 h-4" />
+                  hello@justforu.love
+                </a>
+                <a href="tel:+919876543210" className="flex items-center gap-2 text-gray-600 hover:text-pink-500 transition-colors">
+                  <Phone className="w-4 h-4" />
+                  +91 98765 43210
+                </a>
+                <span className="flex items-center gap-2 text-gray-600">
+                  <MapPin className="w-4 h-4" />
+                  Mumbai, India
+                </span>
+              </div>
               
               {/* Social Links */}
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 {[
-                  { icon: Instagram, href: "#" },
-                  { icon: Twitter, href: "#" },
-                  { icon: Mail, href: "#" },
-                ].map((social, index) => (
+                  { icon: Instagram, href: "#", label: "Instagram" },
+                  { icon: Facebook, href: "#", label: "Facebook" },
+                  { icon: Twitter, href: "#", label: "Twitter" },
+                ].map((social) => (
                   <motion.a
-                    key={index}
+                    key={social.label}
                     href={social.href}
-                    whileHover={{ scale: 1.1, y: -3 }}
-                    className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-pink-500 hover:bg-pink-500 hover:text-white transition-colors"
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center text-pink-500 hover:bg-pink-500 hover:text-white transition-all"
+                    aria-label={social.label}
                   >
                     <social.icon className="w-5 h-5" />
                   </motion.a>
@@ -88,13 +98,13 @@ export function Footer() {
 
             {/* Links Sections */}
             <div>
-              <h4 className="font-semibold text-gray-800 mb-4">Product</h4>
+              <h4 className="font-display font-bold text-gray-800 mb-4">Shop</h4>
               <ul className="space-y-3">
-                {footerLinks.product.map((link) => (
+                {footerLinks.shop.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-600 hover:text-pink-500 transition-colors"
+                      className="text-gray-500 hover:text-pink-500 transition-colors text-sm"
                     >
                       {link.name}
                     </Link>
@@ -104,13 +114,13 @@ export function Footer() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-gray-800 mb-4">Occasions</h4>
+              <h4 className="font-display font-bold text-gray-800 mb-4">Occasions</h4>
               <ul className="space-y-3">
                 {footerLinks.occasions.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-600 hover:text-pink-500 transition-colors"
+                      className="text-gray-500 hover:text-pink-500 transition-colors text-sm"
                     >
                       {link.name}
                     </Link>
@@ -120,13 +130,29 @@ export function Footer() {
             </div>
 
             <div>
-              <h4 className="font-semibold text-gray-800 mb-4">Company</h4>
+              <h4 className="font-display font-bold text-gray-800 mb-4">Company</h4>
               <ul className="space-y-3">
                 {footerLinks.company.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-600 hover:text-pink-500 transition-colors"
+                      className="text-gray-500 hover:text-pink-500 transition-colors text-sm"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-display font-bold text-gray-800 mb-4">Support</h4>
+              <ul className="space-y-3">
+                {footerLinks.support.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-gray-500 hover:text-pink-500 transition-colors text-sm"
                     >
                       {link.name}
                     </Link>
@@ -135,42 +161,56 @@ export function Footer() {
               </ul>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Newsletter */}
-          <div className="mt-12 p-8 glass-card rounded-3xl">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex items-center gap-3">
-                <Sparkles className="w-8 h-8 text-pink-500" />
-                <div>
-                  <h4 className="font-semibold text-gray-800">Get Early Access</h4>
-                  <p className="text-gray-600 text-sm">Be the first to know about new templates</p>
-                </div>
-              </div>
-              <div className="flex gap-3 w-full md:w-auto">
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  className="flex-1 md:w-64 px-4 py-3 rounded-full border border-pink-200 focus:outline-none focus:border-pink-400 bg-white/80"
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary py-3 px-6"
-                >
-                  Subscribe
-                </motion.button>
-              </div>
+      {/* Newsletter Section */}
+      <div className="bg-pink-50 py-10">
+        <div className="container-custom">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="font-display font-bold text-xl text-gray-800 mb-1">
+                Subscribe to Our Newsletter
+              </h3>
+              <p className="text-gray-600 text-sm">
+                Get the latest templates, tips, and exclusive offers.
+              </p>
+            </div>
+            <div className="flex gap-3 w-full md:w-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 md:w-64 px-4 py-3 rounded-full border border-pink-200 focus:outline-none focus:border-pink-400 bg-white"
+              />
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-primary whitespace-nowrap"
+              >
+                Subscribe
+              </motion.button>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Bottom Bar */}
-          <div className="mt-12 pt-8 border-t border-pink-200/50 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-gray-500 text-sm">
-              © {currentYear} JustforU. Made with 💖 in India
+      {/* Bottom Bar */}
+      <div className="bg-white border-t border-pink-100 py-6">
+        <div className="container-custom">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+            <p className="flex items-center gap-1">
+              © {currentYear} JustforU. Made with 
+              <Heart className="w-4 h-4 text-pink-500 fill-pink-500" /> 
+              in India
             </p>
-            <p className="text-gray-500 text-sm flex items-center gap-1">
-              Spreading love, one invitation at a time <span className="animate-heartbeat inline-block">❤️</span>
-            </p>
+            <div className="flex items-center gap-6">
+              <Link href="/privacy" className="hover:text-pink-500 transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="hover:text-pink-500 transition-colors">
+                Terms of Service
+              </Link>
+            </div>
           </div>
         </div>
       </div>

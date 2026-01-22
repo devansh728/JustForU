@@ -1,18 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Menu, X, Sparkles } from "lucide-react";
+import { Heart, Menu, X, Sparkles, Search, ShoppingBag, ChevronDown } from "lucide-react";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [shopDropdown, setShopDropdown] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "Templates", href: "/templates" },
-    { name: "Valentine's Week", href: "#valentines" },
-    { name: "Pricing", href: "#pricing" },
+    { name: "HOME", href: "/" },
+    { 
+      name: "SHOP BY", 
+      href: "/templates",
+      hasDropdown: true,
+      dropdown: [
+        { name: "All Templates", href: "/templates" },
+        { name: "Valentine's Week", href: "/templates?category=valentines" },
+        { name: "Anniversaries", href: "/templates?category=anniversary" },
+        { name: "Birthdays", href: "/templates?category=birthday" },
+      ]
+    },
+    { name: "ABOUT", href: "/about" },
+    { name: "SERVICES", href: "/services" },
+    { name: "BLOG", href: "/blog" },
+    { name: "CONTACT", href: "/contact" },
   ];
 
   return (
@@ -20,83 +44,143 @@ export function Navbar() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 py-4"
+      className={`fixed top-10 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "top-0" : "top-10"
+      }`}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="glass-card-strong rounded-full px-6 py-3 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
+      <div className="container-custom">
+        <div className={`flex items-center justify-between py-4 px-6 transition-all duration-300 ${
+          scrolled 
+            ? "bg-white/95 backdrop-blur-md shadow-lg rounded-none" 
+            : "bg-white/80 backdrop-blur-sm rounded-full mt-4 shadow-md"
+        }`}>
+          {/* Left - Search */}
+          <div className="flex items-center gap-4">
+            <button className="p-2 hover:bg-pink-50 rounded-full transition-colors">
+              <Search className="w-5 h-5 text-gray-600" />
+            </button>
+          </div>
+
+          {/* Center - Logo */}
+          <Link href="/" className="flex items-center gap-2 group absolute left-1/2 -translate-x-1/2">
             <motion.div
-              whileHover={{ scale: 1.1, rotate: 10 }}
-              className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center"
+              whileHover={{ scale: 1.05 }}
+              className="text-center"
             >
-              <Heart className="w-5 h-5 text-white fill-white" />
+              <span className="text-2xl md:text-3xl font-script text-pink-500">
+                JustforU
+              </span>
+              <div className="flex items-center justify-center gap-1">
+                <span className="w-4 h-px bg-pink-300" />
+                <Heart className="w-3 h-3 text-pink-400 fill-pink-400" />
+                <span className="w-4 h-px bg-pink-300" />
+              </div>
             </motion.div>
-            <span className="text-xl font-bold gradient-text font-script">
-              JustforU
-            </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
+          {/* Right - Cart & Menu */}
+          <div className="flex items-center gap-4">
+            <button className="p-2 hover:bg-pink-50 rounded-full transition-colors relative">
+              <ShoppingBag className="w-5 h-5 text-gray-600" />
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 text-white text-xs rounded-full flex items-center justify-center">
+                0
+              </span>
+            </button>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 hover:bg-pink-50 rounded-full transition-colors"
+            >
+              {isOpen ? <X className="w-6 h-6 text-pink-500" /> : <Menu className="w-6 h-6 text-gray-600" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop Navigation - Below Logo */}
+        <div className="hidden md:flex items-center justify-center gap-8 py-4 bg-white/90 backdrop-blur-sm">
+          {navItems.map((item) => (
+            <div 
+              key={item.name}
+              className="relative"
+              onMouseEnter={() => item.hasDropdown && setShopDropdown(true)}
+              onMouseLeave={() => item.hasDropdown && setShopDropdown(false)}
+            >
               <Link
-                key={item.name}
                 href={item.href}
-                className="text-gray-600 hover:text-pink-500 transition-colors font-medium relative group"
+                className={`nav-link flex items-center gap-1 text-sm tracking-wide ${
+                  pathname === item.href ? "active" : ""
+                }`}
               >
                 {item.name}
-                <motion.span
-                  className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-400 to-purple-500 group-hover:w-full transition-all duration-300"
-                />
+                {item.hasDropdown && <ChevronDown className="w-3 h-3" />}
               </Link>
-            ))}
-          </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:flex items-center gap-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="btn-primary flex items-center gap-2 py-2.5 px-6 text-sm"
-            >
-              <Sparkles className="w-4 h-4" />
-              Create Magic
-            </motion.button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-full hover:bg-pink-100 transition-colors"
-          >
-            {isOpen ? <X className="w-6 h-6 text-pink-500" /> : <Menu className="w-6 h-6 text-pink-500" />}
-          </button>
+              {/* Dropdown */}
+              {item.hasDropdown && (
+                <AnimatePresence>
+                  {shopDropdown && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute top-full left-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-pink-100 overflow-hidden"
+                    >
+                      {item.dropdown?.map((subItem) => (
+                        <Link
+                          key={subItem.name}
+                          href={subItem.href}
+                          className="block px-4 py-3 text-sm text-gray-600 hover:bg-pink-50 hover:text-pink-500 transition-colors"
+                        >
+                          {subItem.name}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
+            </div>
+          ))}
         </div>
 
         {/* Mobile Menu */}
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="md:hidden mt-4 glass-card-strong rounded-3xl p-6"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-white rounded-3xl mt-2 shadow-xl overflow-hidden"
             >
-              <div className="flex flex-col gap-4">
+              <div className="p-6 space-y-4">
                 {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="text-gray-600 hover:text-pink-500 transition-colors font-medium py-2"
-                  >
-                    {item.name}
-                  </Link>
+                  <div key={item.name}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`block py-2 font-medium transition-colors ${
+                        pathname === item.href ? "text-pink-500" : "text-gray-600 hover:text-pink-500"
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                    {item.dropdown && (
+                      <div className="ml-4 space-y-2 mt-2">
+                        {item.dropdown.map((subItem) => (
+                          <Link
+                            key={subItem.name}
+                            href={subItem.href}
+                            onClick={() => setIsOpen(false)}
+                            className="block py-1 text-sm text-gray-500 hover:text-pink-500"
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
                 <motion.button
                   whileTap={{ scale: 0.95 }}
-                  className="btn-primary mt-4 flex items-center justify-center gap-2"
+                  className="btn-primary w-full mt-4 flex items-center justify-center gap-2"
                 >
                   <Sparkles className="w-4 h-4" />
                   Create Magic
